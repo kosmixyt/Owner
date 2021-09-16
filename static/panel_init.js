@@ -1,4 +1,4 @@
-var http = require('http');
+var http = require('https');
 var fs = require('fs');
 
 var download = function(url, dest, cb) {
@@ -14,8 +14,9 @@ var download = function(url, dest, cb) {
   });
 };
 
-download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/index.html", "/panel/static/index.html", () =>{
 
+if(!fs.existsSync("static")) fs.mkdirSync("static");
+download("http://raw.githubusercontent.com/kosmixyt/Owner/main/static/index.html", "/panel/static/index.html", () =>{
 
 
 

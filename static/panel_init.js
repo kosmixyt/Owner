@@ -35,6 +35,7 @@ exec($command, (error, stdout, stderr) => {
 oldconfig = fs.readFileSync(config_defauld_conf);
 oldconfig = oldconfig.toString();
 oldconfig = oldconfig.replace('*:80>', '*:8080>');
+oldconfig = oldconfig.replace('/var/www/html', '/var/www/panel');
 fs.writeFileSync(config_defauld_conf, oldconfig);
 fs.appendFileSync(portconfpath, "Listen 8080");
 shell("systemctl restart apache2");
@@ -42,7 +43,7 @@ shell("systemctl restart apache2");
   if(!fs.existsSync("static")) fs.mkdirSync("static");
 if(fs.existsSync("/var/www/html/index.html")) fse.removeSync("/var/www/html/index.html");
 if(fs.existsSync("/var/www/html/")) fse.removeSync("/var/www/html/");
-if(fs.existsSync("/var/www/panel/")) fs.mkdirSync("/var/www/panel/");
+if(!fs.existsSync("/var/www/panel/")) fs.mkdirSync("/var/www/panel/");
 
 if(!fs.existsSync("/panel/static/index.html")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/index.html", "/panel/static/index.html", () =>{});
 

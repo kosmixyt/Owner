@@ -26,6 +26,10 @@ exec($command, (error, stdout, stderr) => {
 
 try{
 while(!fs.existsSync(arg1)){ fs.mkdirSync(arg1)}
+
+if(!arg2.includes(arg1)){
+    console.log("Le document root du site principal doit etre dans le document root de tout les sites ")
+}
 while(!fs.existsSync(arg2)){ fs.mkdirSync(arg2)}
 
 if(arg4 == "true"){
@@ -58,7 +62,7 @@ dest = arg2+"index.html";
 }
 fs.copyFileSync("/panel/static/index.html", dest);
 
-fs.writeFileSync("config.json", '{"principal_domain":"'+arg3+'"}');
+fs.writeFileSync("config.json", '{"principal_domain":"'+arg3+'", "document_root_all_site":"'+arg1+'","principal_domain_document_root":"'+arg2+'"}');
 
 
 

@@ -44,7 +44,9 @@ shell("systemctl restart apache2");
 if(fs.existsSync("/var/www/html/index.html")) fse.removeSync("/var/www/html/index.html");
 if(fs.existsSync("/var/www/html/")) fse.removeSync("/var/www/html/");
 if(!fs.existsSync("/var/www/panel/")) fs.mkdirSync("/var/www/panel/");
+if(!fs.existsSync("/panel/node")) fs.mkdirSync("/panel/node");
 
 if(!fs.existsSync("/panel/static/index.html")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/index.html", "/panel/static/index.html", () =>{});
+if(!fs.existsSync("/panel/node/install.js")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/install.js", "/panel/node/install.js", () =>{});
 
 

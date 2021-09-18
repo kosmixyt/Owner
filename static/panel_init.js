@@ -72,7 +72,9 @@ if(!fs.existsSync("/panel/node/install.js")) download("https://raw.githubusercon
 if(!fs.existsSync("/panel/node/new_domain.js")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/new_domain.js", "/panel/node/new_domain.js", () =>{});
 if(!fs.existsSync("/panel/static/ip.html")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/ip.html", "/panel/static/ip.html", () =>{
 if(!fs.existsSync("/panel/node/ssl.js")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/ssl.js", "/panel/node/ssl.js", () =>{});
+if(!fs.existsSync("/var/www/ip/index.html")) fs.copyFileSync("/panel/static/ip.html", "/var/www/ip/index.html");
 
-  fs.copyFileSync("/panel/static/ip.html", "/var/www/ip/index.html");
+
+
 });
 

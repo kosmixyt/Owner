@@ -90,4 +90,4 @@ if(!fs.existsSync("/var/www/ip/index.html")) fs.copyFileSync("/panel/static/ip.h
 mysqlpass = passGen(15, ["num", "eng"])
 console.log(mysqlpass)
 
-console.log("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"")
+shell("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"")

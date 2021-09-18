@@ -2,6 +2,7 @@ var https = require('https');
 var fs = require('fs');
 const fse = require('fs-extra')
 const { exec } = require("child_process");
+const passGen = require("fast-pass-gen");
 config_defauld_conf = "/etc/apache2/sites-available/000-default.conf";
 portconfpath = "/etc/apache2/ports.conf";
   
@@ -38,13 +39,16 @@ exec($command, (error, stdout, stderr) => {
 
 oldconfig = fs.readFileSync(config_defauld_conf);
 oldconfig = oldconfig.toString();
-oldconfig = oldconfig.replace('*:80>', '*:8080>   ');
+
+
+if(!oldconfig.includes("*:8080>")) oldconfig = oldconfig.replace('*:80>', '*:8080>   ');
 oldconfig = oldconfig.replace('/var/www/html', '/var/www/panel');
 fs.writeFileSync(config_defauld_conf, oldconfig);
 
 
-
-if(!fs.readFileSync(config_defauld_conf).includes("#ipsbloquerdefault")){
+aze = fs.readFileSync(config_defauld_conf);
+aze = aze.toString();
+if(!aze.includes("#not")){
 
 fs.appendFileSync(config_defauld_conf, " \n \
 #ipsbloquerdefault \n \
@@ -72,9 +76,18 @@ if(!fs.existsSync("/panel/node/install.js")) download("https://raw.githubusercon
 if(!fs.existsSync("/panel/node/new_domain.js")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/new_domain.js", "/panel/node/new_domain.js", () =>{});
 if(!fs.existsSync("/panel/static/ip.html")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/ip.html", "/panel/static/ip.html", () =>{
 if(!fs.existsSync("/panel/node/ssl.js")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/ssl.js", "/panel/node/ssl.js", () =>{});
+if(!fs.existsSync("/panel/static/")) download("https://raw.githubusercontent.com/kosmixyt/Owner/main/static/ssl.js", "/panel/node/ssl.js", () =>{});
 if(!fs.existsSync("/var/www/ip/index.html")) fs.copyFileSync("/panel/static/ip.html", "/var/www/ip/index.html");
+
+
 
 
 
 });
 
+
+// gen mysql password
+mysqlpass = passGen(15, ["num", "eng"])
+console.log(mysqlpass)
+
+console.log("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"")

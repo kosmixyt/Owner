@@ -29,7 +29,7 @@ if(arg2 == 'true') alias = "-d www."+domaine_name; else alias = "";
 pathroot = arg3;
 if(arg4 == 'true') redirect = '--redirect'; else  redirect = '--no-redirect';
 
-shell("certbot -d "+ domaine_name +" "+ alias + " --webroot-path " + arg3 + " --apache --agree-tos "+ redirect);
+shell("certbot -d "+ domaine_name +" "+ alias + " --webroot-path " + arg3 + " --apache --agree-tos "+ redirect + " --register-unsafely-without-email ");
 
 
 

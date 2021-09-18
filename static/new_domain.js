@@ -39,7 +39,7 @@ virtualhostdata = "<VirtualHost *:80> \n \
 ServerName "+arg1+" \n \
 " + alias + " \n \
 DocumentRoot \""+ arg3 +"\" \n \
-<Directory \""+ arg3 + "> \n \
+<Directory \""+ arg3 + "\"> \n \
     Options +FollowSymLinks \n \
     AllowOverride all \n \
     Require all granted \n \

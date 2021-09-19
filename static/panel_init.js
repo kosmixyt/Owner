@@ -113,14 +113,14 @@ date = Date.now();
 const saltRounds = 10;
   shell("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"");
 	await delay(2000);
-  shell("mysql -uroot -" + mysqlpass+ " --execute=\"CREATE DATABASE panel;\"");
+  shell("mysql -uroot -p" + mysqlpass+ " --execute=\"CREATE DATABASE panel;\"");
 	await delay(2000);
-  shell("mysql -uroot -" + mysqlpass + " --execute='USE panel; CREATE TABLE `users` (`id` int NOT NULL,`username` varchar(50) NOT NULL,`last_login_ip` varchar(30) NOT NULL,`register_ip` varchar(30) NOT NULL,`user_type` varchar(10) NOT NULL,`register_date` varchar(300) NOT NULL,`password` varchar(300) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ALTER TABLE `users` ADD PRIMARY KEY (`id`); ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;COMMIT;'");
+  shell("mysql -uroot -p" + mysqlpass + " --execute='USE panel; CREATE TABLE `users` (`id` int NOT NULL,`username` varchar(50) NOT NULL,`last_login_ip` varchar(30) NOT NULL,`register_ip` varchar(30) NOT NULL,`user_type` varchar(10) NOT NULL,`register_date` varchar(300) NOT NULL,`password` varchar(300) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ALTER TABLE `users` ADD PRIMARY KEY (`id`); ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;COMMIT;'");
 	await delay(2000);
 
   bcrypt.hash(adminpanelpassword, saltRounds, function(err, hash) {
 
-    shell("mysql -uroot -" + mysqlpass + " --execute='USE panel; INSERT INTO `users` (`id`, `username`, `last_login_ip`, `register_ip`, `user_type`, `register_date`, `password`) VALUES (NULL, \"admin\", \"0.0.0.0\", \"0.0.0.0\", \"admin_all\", \""+ date +"\", \"" + hash + "\")'");
+    shell("mysql -uroot -p" + mysqlpass + " --execute='USE panel; INSERT INTO `users` (`id`, `username`, `last_login_ip`, `register_ip`, `user_type`, `register_date`, `password`) VALUES (NULL, \"admin\", \"0.0.0.0\", \"0.0.0.0\", \"admin_all\", \""+ date +"\", \"" + hash + "\")'");
     });
 
 

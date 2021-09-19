@@ -110,7 +110,7 @@ date = Date.now();
 console.log("Mysql 'root' password : "+mysqlpass)
 console.log("Panel 'ADMIN' password : "+ adminpanelpassword)
 
-//shell("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"");
+shell("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"+mysqlpass+"';\"");
 const saltRounds = 10;
 
 

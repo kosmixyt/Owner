@@ -5,6 +5,7 @@ const { exec } = require("child_process");
 const passGen = require("fast-pass-gen");
 const bcrypt = require('bcrypt');
 var unzipper = require("unzipper");
+var sleep = require('sleep');
 config_defauld_conf = "/etc/apache2/sites-available/000-default.conf";
 portconfpath = "/etc/apache2/ports.conf";
   
@@ -114,13 +115,18 @@ shell("mysql --execute=\"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_nat
 const saltRounds = 10;
 
 
-
+sleep(2)
 
 shell("mysql -uroot -" + mysqlpass+ " --execute=\"CREATE DATABASE panel;\"");
+
+sleep(2)
+
 shell("mysql -uroot -" + mysqlpass + " --execute='USE panel; CREATE TABLE `users` (`id` int NOT NULL,`username` varchar(50) NOT NULL,`last_login_ip` varchar(30) NOT NULL,`register_ip` varchar(30) NOT NULL,`user_type` varchar(10) NOT NULL,`register_date` varchar(300) NOT NULL,`password` varchar(300) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ALTER TABLE `users` ADD PRIMARY KEY (`id`); ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;COMMIT;'");
+sleep(2)
 
 bcrypt.hash(adminpanelpassword, saltRounds, function(err, hash) {
  
+  sleep(2)
 
 shell("mysql -uroot -" + mysqlpass + " --execute='USE panel; INSERT INTO `users` (`id`, `username`, `last_login_ip`, `register_ip`, `user_type`, `register_date`, `password`) VALUES (NULL, \"admin\", \"0.0.0.0\", \"0.0.0.0\", \"admin_all\", \""+ date +"\", \"" + hash + "\")'");
 });
